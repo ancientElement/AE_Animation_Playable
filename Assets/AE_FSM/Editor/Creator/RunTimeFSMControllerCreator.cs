@@ -14,8 +14,8 @@ namespace AE_FSM
             Selection.activeObject = controller;
 
             //创建默认状态
-            FSMStateNodeFactory.CreateFSMNode(controller, FSMConst.anyState, false, new Rect(0, 100, FSMConst.stateWidth, FSMConst.stateHeight));
-            FSMStateNodeFactory.CreateFSMNode(controller, FSMConst.enterState, false, new Rect(0, -100, FSMConst.stateWidth, FSMConst.stateHeight));
+            FSMStateNodeFactory.CreateFSMNode(controller, FSMConst.anyState, null, false, new Rect(0, 100, FSMConst.stateWidth, FSMConst.stateHeight));
+            FSMStateNodeFactory.CreateFSMNode(controller, FSMConst.enterState, null, false, new Rect(0, -100, FSMConst.stateWidth, FSMConst.stateHeight));
         }
     }
 }

@@ -28,10 +28,11 @@ namespace AE_Motion
         public PlayerSensor Sensor { get; private set; }
         public Transform Modle { get; private set; }
         public CharacterController CharactorController { get; private set; }
+        public Rigidbody Body { get; private set; }
         public Animator Animator { get; private set; }
         public PlayerLocomotionContext LocomtionCtx { get; private set; }
 
-        public PlayerMotion(Transform modle, Animator animator, CharacterController characterController, PlayerAnim anim, FSMController fSMController, PlayerParam playerParam, PlayerSensor sensor, PlayerLocomotionContext playerLocomotionContext)
+        public PlayerMotion(Transform modle, Animator animator, CharacterController characterController, Rigidbody rigidbody, PlayerAnim anim, FSMController fSMController, PlayerParam playerParam, PlayerSensor sensor, PlayerLocomotionContext playerLocomotionContext)
         {
             Modle = modle;
             Anim = anim;
@@ -41,6 +42,7 @@ namespace AE_Motion
             LocomtionCtx = playerLocomotionContext;
             CharactorController = characterController;
             Animator = animator;
+            Body = rigidbody;
 
             Anim.Init(this);
             FSMController.Init(this);

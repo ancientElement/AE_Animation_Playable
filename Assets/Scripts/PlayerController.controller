@@ -99,13 +99,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: TurnSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -196,9 +196,9 @@ BlendTree:
     m_DirectBlendParameter: Velocity
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: f69d70cca5a9bac41a33b436c8390bdc, type: 2}
+    m_Motion: {fileID: 7400000, guid: fa6a3c5afa5c0c8468e3167825107cf1, type: 2}
     m_Threshold: 1
-    m_Position: {x: 0, y: 5.547339}
+    m_Position: {x: 0, y: 3.23691}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Velocity
@@ -206,7 +206,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 9e1fb524746c5824fa9e11e299a93433, type: 2}
     m_Threshold: 1.5
-    m_Position: {x: -3.9269898, y: 5.547339}
+    m_Position: {x: -3.9269898, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Velocity
@@ -214,7 +214,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: b748b4fd0bd49e044a2a54dca0fc045b, type: 2}
     m_Threshold: 2
-    m_Position: {x: 3.9269881, y: 5.547339}
+    m_Position: {x: 3.9269881, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Velocity
@@ -222,7 +222,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: d75974ece3a720d4ba6efc601614f679, type: 2}
     m_Threshold: 2.5
-    m_Position: {x: -2.6762745, y: 1.81728}
+    m_Position: {x: -2.6762745, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Velocity
@@ -230,7 +230,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: c431e6ee18cdfa44f90fd8abebc90335, type: 2}
     m_Threshold: 3
-    m_Position: {x: 2.4301238, y: 1.81728}
+    m_Position: {x: 2.4301238, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Velocity

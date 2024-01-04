@@ -9,32 +9,30 @@ public class BaseState : IFSMState
     protected PlayerSensor m_sensor;
     protected Transform m_modle;
     protected CharacterController m_characterController;
+    protected Rigidbody m_body;
     protected PlayerLocomotionContext m_ctx;
-
 
     public virtual void Enter(FSMController controller)
     {
-        m_anim = controller.playerMotion.Anim;
-        m_modle = controller.playerMotion.Modle;
-        m_params = controller.playerMotion.Param;
-        m_sensor = controller.playerMotion.Sensor;
-        m_ctx = controller.playerMotion.LocomtionCtx;
-        m_characterController = controller.playerMotion.CharactorController;
+        m_anim = controller.Motion.Anim;
+        m_modle = controller.Motion.Modle;
+        m_params = controller.Motion.Param;
+        m_sensor = controller.Motion.Sensor;
+        m_ctx = controller.Motion.LocomtionCtx;
+        m_body = controller.Motion.Body;
+        m_characterController = controller.Motion.CharactorController;
     }
 
     public virtual void Exit(FSMController controller)
     {
-        throw new System.NotImplementedException();
     }
 
     public virtual void FixUpdate(FSMController controller)
     {
-        throw new System.NotImplementedException();
     }
 
     public virtual void LaterUpdate(FSMController controller)
     {
-        throw new System.NotImplementedException();
     }
 
     public virtual void Update(FSMController controller)

@@ -93,9 +93,9 @@ namespace AE_FSM
             {
                 UnityEngine.Object[] objs = DragAndDrop.objectReferences;
                 mousePosition = Event.current.mousePosition;
-                foreach (var item in objs)
+                foreach (Object item in objs)
                 {
-                    CreateState((item as MonoScript).GetClass().FullName);
+                    CreateState((item as MonoScript).GetClass().FullName, item as MonoScript);
                     mousePosition.x += 30;
                     mousePosition.y += 30;
                 }
@@ -128,11 +128,11 @@ namespace AE_FSM
             FSMStateNodeFactory.CreateFSMNode(this.Context.RunTimeFSMContorller, this.Context.RunTimeFSMContorller.states.Count == 2, rect);
         }
 
-        private void CreateState(string scriptName)
+        private void CreateState(string scriptName, MonoScript monoScript)
         {
             var rect = new Rect(0, 0, FSMConst.stateWidth, FSMConst.stateHeight);
             rect.center = MousePosition(mousePosition);
-            FSMStateNodeFactory.CreateFSMNode(this.Context.RunTimeFSMContorller, scriptName, this.Context.RunTimeFSMContorller.states.Count == 2, rect, scriptName);
+            FSMStateNodeFactory.CreateFSMNode(this.Context.RunTimeFSMContorller, scriptName, monoScript,this.Context.RunTimeFSMContorller.states.Count == 2, rect, scriptName);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 using AE_FSM;
+using AE_Motion;
 using UnityEngine;
 
 public class RunState : MoveState

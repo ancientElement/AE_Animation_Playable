@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using AE_Motion;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEditor.Experimental.GraphView;
 using UnityEditorInternal;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace AE_FSM
 {
     public class FSMController : MonoBehaviour
     {
-        public PlayerMotion playerMotion { get; private set; }
+        public PlayerMotion Motion { get; private set;}
 
         /// <summary>
         /// 配置文件
@@ -109,14 +110,15 @@ namespace AE_FSM
         /// <summary>
         /// 初始化
         /// </summary>
-        public void Init(PlayerMotion motion)
-        {   
+        public virtual void Init(PlayerMotion playerMotion)
+        {
             //复制数据
             if (runTimeFSMController == null) return;
 
-            playerMotion = motion;
-
             _runTimeFSMController = GameObject.Instantiate(runTimeFSMController);
+
+            Motion = playerMotion;
+
 
             //初始化参数
 
@@ -181,6 +183,7 @@ namespace AE_FSM
             }
         }
 
+
         #region 设置参数
 
         public void SetBool(string paramterName, bool value)
@@ -219,7 +222,7 @@ namespace AE_FSM
 
         #endregion
 
-
+        #region  切换状态
         public void SwitchState(string state, float exitTime = 0f, bool toself = false)
         {
             isSwitching = true;
@@ -276,5 +279,6 @@ namespace AE_FSM
             isSwitching = false;
             yield break;
         }
+        #endregion
     }
 }

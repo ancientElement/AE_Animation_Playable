@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEditor;
 
 namespace AE_FSM
 {
@@ -11,7 +12,7 @@ namespace AE_FSM
 
         public void Enter(FSMStateNode node)
         {
-            IFSMState state = GetState(node.stateNodeData.scriptName);
+            IFSMState state = GetState(node.stateNodeData.scriptName, node.stateNodeData.script);
             if (state != null)
             {
                 state.Enter(node.controller);
@@ -19,7 +20,7 @@ namespace AE_FSM
         }
         public void Update(FSMStateNode node)
         {
-            IFSMState state = GetState(node.stateNodeData.scriptName);
+            IFSMState state = GetState(node.stateNodeData.scriptName, node.stateNodeData.script);
             if (state != null)
             {
                 state.Update(node.controller);
@@ -27,7 +28,7 @@ namespace AE_FSM
         }
         public void LaterUpdate(FSMStateNode node)
         {
-            IFSMState state = GetState(node.stateNodeData.scriptName);
+            IFSMState state = GetState(node.stateNodeData.scriptName, node.stateNodeData.script);
             if (state != null)
             {
                 state.LaterUpdate(node.controller);
@@ -35,7 +36,7 @@ namespace AE_FSM
         }
         public void FixUpdate(FSMStateNode node)
         {
-            IFSMState state = GetState(node.stateNodeData.scriptName);
+            IFSMState state = GetState(node.stateNodeData.scriptName, node.stateNodeData.script);
             if (state != null)
             {
                 state.FixUpdate(node.controller);
@@ -43,26 +44,35 @@ namespace AE_FSM
         }
         public void Exit(FSMStateNode node)
         {
-            IFSMState state = GetState(node.stateNodeData.scriptName);
+            IFSMState state = GetState(node.stateNodeData.scriptName, node.stateNodeData.script);
             if (state != null)
             {
                 state.Exit(node.controller);
             }
         }
 
-        private IFSMState GetState(string scripteName)
+        private IFSMState GetState(string scripteName, MonoScript script)
         {
             IFSMState state;
+
             if (!states.TryGetValue(scripteName, out state))
             {
-                Type stateType = GetType(scripteName);
-                if (stateType != null)
+                if (script != null)
                 {
-                    state = Activator.CreateInstance(stateType) as IFSMState;
-                    if (state != null)
+                    Type scriptType = script.GetClass();
+                    state = Activator.CreateInstance(scriptType) as IFSMState;
+                }
+                else
+                {
+                    Type stateType = GetType(scripteName);
+                    if (stateType != null)
                     {
-                        states.Add(scripteName, state);
+                        state = Activator.CreateInstance(stateType) as IFSMState;
                     }
+                }
+                if (state != null)
+                {
+                    states.Add(scripteName, state);
                 }
             }
             return state;

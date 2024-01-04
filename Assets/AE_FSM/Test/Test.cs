@@ -1,14 +1,13 @@
-using AE_FSM;
 using System;
 using System.Collections;
-using Unity.Collections.LowLevel.Unsafe;
+using AE_FSM;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    // [SerializeField] float   attackTime = 0.5f;
+    // [SerializeField] float attackTime = 0.5f;
     [SerializeField] FSMController controller;
-    [SerializeField, Range(0f, 10f)] float test;
+    [SerializeField,Range(0f,10f)] float test;
 
     private void Start()
     {

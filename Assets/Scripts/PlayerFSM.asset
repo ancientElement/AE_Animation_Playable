@@ -22,6 +22,7 @@ MonoBehaviour:
     defualtState: 0
     name: AnyState
     scriptName: 
+    script: {fileID: 0}
     trasitions: []
   - rect:
       serializedVersion: 2
@@ -32,6 +33,7 @@ MonoBehaviour:
     defualtState: 0
     name: EnterState
     scriptName: 
+    script: {fileID: 0}
     trasitions: []
   - rect:
       serializedVersion: 2
@@ -42,6 +44,7 @@ MonoBehaviour:
     defualtState: 1
     name: IdleState
     scriptName: IdleState
+    script: {fileID: 11500000, guid: 46e3cee2b61d45142bbb11506af58751, type: 3}
     trasitions:
     - fromState: IdleState
       toState: MoveState
@@ -58,6 +61,7 @@ MonoBehaviour:
     defualtState: 0
     name: MoveState
     scriptName: MoveState
+    script: {fileID: 11500000, guid: ce0950108907f8c43825f4479194123e, type: 3}
     trasitions:
     - fromState: MoveState
       toState: IdleState

@@ -15,33 +15,53 @@ MonoBehaviour:
   states:
   - rect:
       serializedVersion: 2
-      x: 132.18982
-      y: -268.8094
+      x: 118.85648
+      y: -255.47603
       width: 480
       height: 90
     defualtState: 0
     name: AnyState
     scriptName: 
+    script: {fileID: 0}
     trasitions: []
   - rect:
       serializedVersion: 2
-      x: 136
-      y: -125.42866
+      x: 109.33333
+      y: -105.42864
       width: 480
       height: 90
     defualtState: 0
     name: EnterState
     scriptName: 
+    script: {fileID: 0}
     trasitions: []
   - rect:
       serializedVersion: 2
-      x: -146.40013
-      y: 275.9332
+      x: -149.33342
+      y: 383.26666
+      width: 480
+      height: 90
+    defualtState: 0
+    name: Move
+    scriptName: Move
+    script: {fileID: 11500000, guid: 2cacad0c44af4a0438f93d9e81d02885, type: 3}
+    trasitions:
+    - fromState: Move
+      toState: Attack
+      conditions:
+      - tragetValue: 1
+        paramterName: New Bool_0
+        compareType: 2
+  - rect:
+      serializedVersion: 2
+      x: 487.33353
+      y: 379.93326
       width: 480
       height: 90
     defualtState: 0
     name: Attack
     scriptName: Attack
+    script: {fileID: 11500000, guid: 7d87e2f1fd468ed4baa9932f360b36f2, type: 3}
     trasitions:
     - fromState: Attack
       toState: Idle
@@ -51,45 +71,27 @@ MonoBehaviour:
         compareType: 2
   - rect:
       serializedVersion: 2
-      x: 143.60005
-      y: 49.266872
+      x: 10.666607
+      y: 119.93339
       width: 480
       height: 90
     defualtState: 1
     name: Idle
     scriptName: Idle
+    script: {fileID: 11500000, guid: a03f118c877a3e94dadc39fb638102f9, type: 3}
     trasitions:
+    - fromState: Idle
+      toState: Move
+      conditions:
+      - tragetValue: 0.000001
+        paramterName: New Float_0
+        compareType: 0
     - fromState: Idle
       toState: Attack
       conditions:
       - tragetValue: 1
         paramterName: New Bool_0
         compareType: 2
-    - fromState: Idle
-      toState: Move
-      conditions: []
-    - fromState: Idle
-      toState: Move
-      conditions: []
-  - rect:
-      serializedVersion: 2
-      x: 465.38287
-      y: 291.66312
-      width: 480
-      height: 90
-    defualtState: 0
-    name: Move
-    scriptName: Move
-    trasitions:
-    - fromState: Move
-      toState: Idle
-      conditions:
-      - tragetValue: 0.000001
-        paramterName: New Float_0
-        compareType: 1
-      - tragetValue: 0.000001
-        paramterName: New Float_1
-        compareType: 1
   paramters:
   - name: New Bool_0
     value: 0

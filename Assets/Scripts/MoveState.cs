@@ -3,6 +3,7 @@ using System.Collections;
 using AE_FSM;
 using Unity.Rendering.HybridV2;
 using UnityEngine;
+using AE_Motion;
 
 public class MoveState : BaseState
 {
@@ -33,7 +34,6 @@ public class MoveState : BaseState
     {
         if (enableInput)
         {
-            // m_body.velocity = m_sensor.desiredVelocity
 
             //可以考虑使用Quaternion.RotateTowards。这个方法可以让你设置一个最大的旋转角度，以确保平滑过渡而不会瞬间完成旋转。
             //转向完成之前不许旋转
@@ -48,7 +48,8 @@ public class MoveState : BaseState
             // m_ctx.currentTurnSpeed = Mathf.Lerp(m_ctx.currentTurnSpeed, angle, 0.1f);
             // if()
 
-            m_characterController.SimpleMove(m_sensor.desiredVelocity);
+            m_body.velocity = m_sensor.desiredVelocity;
+            // m_characterController.SimpleMove(m_sensor.desiredVelocity);
         }
     }
 
@@ -129,13 +130,13 @@ public class MoveState : BaseState
             m_anim.TransitionTo("RunTurn180", () =>
             {
                 if (stopTurnCoroutine != null)
-                    m_anim.AnimStopCoroutine(stopTurnCoroutine);
-                stopTurnCoroutine = m_anim.AnimStartCoroutine(StopTurn(controller));
+                    m_anim.StopCoroutine(stopTurnCoroutine);
+                stopTurnCoroutine = m_anim.StartCoroutine(StopTurn(controller));
                 PreventRootMotion();
                 m_anim.TransitionTo("MoveBlendTree");
                 // m_anim.TransitionTo("MoveBlendTree2D");
                 // m_anim.AnimatorCroosFade("MoveState", 0.1f);
-            }, -1f, 0.733f);
+            }, -1f, 0.8567f);
         }
     }
 

@@ -1,11 +1,13 @@
 using AE_FSM;
+using AE_Motion;
 using UnityEngine;
 
 public class EmergencyStopState : BaseState
 {
     private float walkStopAnimTime = 1.1f;
     private float runStopAnimTime = 1.2f;
-    public override void Enter(FSMController controller)
+
+    public override void Enter(FSMController  controller)
     {
         base.Enter(controller);
         ApplayRootMotion();
@@ -23,21 +25,21 @@ public class EmergencyStopState : BaseState
             }
         }
     }
-    
-    public override void Exit(FSMController controller)
+
+    public override void Exit(FSMController  controller)
     {
         PreventRootMotion();
     }
 
-    public override void FixUpdate(FSMController controller)
+    public override void FixUpdate(FSMController  controller)
     {
     }
 
-    public override void LaterUpdate(FSMController controller)
+    public override void LaterUpdate(FSMController  controller)
     {
     }
 
-    public override void Update(FSMController controller)
+    public override void Update(FSMController  controller)
     {
     }
 }

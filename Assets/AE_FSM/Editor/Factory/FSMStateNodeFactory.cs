@@ -6,7 +6,7 @@ namespace AE_FSM
 {
     public class FSMStateNodeFactory
     {
-        public static FSMStateNodeData CreateFSMNode(RunTimeFSMController contorller, string stateName, bool defaultState, Rect rect, string scriptName = "")
+        public static FSMStateNodeData CreateFSMNode(RunTimeFSMController contorller, string stateName, MonoScript script, bool defaultState, Rect rect, string scriptName = "")
         {
             if (contorller.states.Where(x => x.name.Equals(stateName)).FirstOrDefault() != null)
             {
@@ -20,6 +20,8 @@ namespace AE_FSM
                 stateNodeData.scriptName = string.Empty;
             else
                 stateNodeData.scriptName = scriptName;
+
+            stateNodeData.script = script;
 
             stateNodeData.rect = rect;
 
@@ -44,7 +46,7 @@ namespace AE_FSM
 
         public static FSMStateNodeData CreateFSMNode(RunTimeFSMController contorller, bool defaultState, Rect rect)
         {
-            return CreateFSMNode(contorller, GetName(contorller), defaultState, rect);
+            return CreateFSMNode(contorller, GetName(contorller), null, defaultState, rect);
         }
 
         private static string GetName(RunTimeFSMController contorller)
