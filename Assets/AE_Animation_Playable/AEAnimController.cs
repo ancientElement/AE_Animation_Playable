@@ -25,15 +25,34 @@ namespace AE_Animation_Playable
 
         private bool m_rootmotion;
 
-        private Rigidbody m_body;
+        //[Obsolete]private Rigidbody m_body;
+        private CharacterController m_characterController;
         private Transform m_modle;
 
         private MonoBehaviour m_owner;
 
-        public AEAnimController(MonoBehaviour owner, Animator animator, Transform modle, Rigidbody body)
+        //[Obsolete]
+        //public AEAnimController(MonoBehaviour owner, Animator animator, Transform modle, Rigidbody body)
+        //{
+        //    m_owner = owner;
+
+        //    m_graph = PlayableGraph.Create();
+        //    m_mixer = new Mixer(m_graph);
+        //    m_animMap2Int = new Dictionary<string, int>();
+
+        //    m_animMap = new Dictionary<string, AnimBehaviour>();
+        //    m_blendTree1DMap = new Dictionary<string, BlendTree1D>();
+        //    m_blendTree2DMap = new Dictionary<string, BlendTree2D>();
+
+        //    m_animator = animator;
+        //    m_modle = modle;
+        //    m_body = body;
+        //}
+
+        public AEAnimController(MonoBehaviour owner, Animator animator, Transform modle, CharacterController characterController)
         {
             m_owner = owner;
-            
+
             m_graph = PlayableGraph.Create();
             m_mixer = new Mixer(m_graph);
             m_animMap2Int = new Dictionary<string, int>();
@@ -44,7 +63,7 @@ namespace AE_Animation_Playable
 
             m_animator = animator;
             m_modle = modle;
-            m_body = body;
+            m_characterController = characterController;
         }
 
         public void Start()
@@ -204,8 +223,8 @@ namespace AE_Animation_Playable
         protected void Move(Vector3 deltaPosition, Vector3 velocity, Quaternion deltaRotation)
         {
             // 设置速度
-            // m_characterController.Move(deltaPosition);
-            m_body.velocity = velocity;
+             m_characterController.Move(deltaPosition);
+            //m_body.velocity = velocity;
 
             // 通过将刚体的角度设置为当前角度加上增量旋转
             m_modle.transform.rotation *= deltaRotation;

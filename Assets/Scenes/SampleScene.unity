@@ -192,7 +192,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310744435}
-  m_LocalRotation: {x: 0.14521316, y: 0.00000001225438, z: -0.0000000017985611, w: 0.9894004}
+  m_LocalRotation: {x: 0.14521313, y: -0.000000019823093, z: 0.0000000029094116, w: 0.98940045}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -270,7 +270,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640491272}
-  m_LocalRotation: {x: 0.10917738, y: -0.000000016480023, z: 0.000000001810066, w: 0.9940223}
+  m_LocalRotation: {x: 0.1091774, y: 0.000000019104116, z: -0.0000000020982809, w: 0.9940223}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -449,7 +450,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.12719244, y: 0.00000003555184, z: -0.0000000045589523, w: 0.9918781}
+  m_LocalRotation: {x: 0.12719244, y: 0.00000003413196, z: -0.000000004376876, w: 0.9918781}
   m_LocalPosition: {x: 0, y: 2.5, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -457,6 +458,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 1
+    m_Time: 2
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1069540848
 GameObject:
   m_ObjectHideFlags: 3
@@ -1165,7 +1200,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25162
+  m_Name: pb_Mesh25164
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1344,6 +1379,8 @@ MonoBehaviour:
     currentTurnSpeed: 0
     currentSpeed: 0
     zero: 0.000001
+    turnStopAngle: 30
+    turnStartAngle: 160
 --- !u!114 &1765722332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1384,7 +1421,7 @@ MonoBehaviour:
     pos: {x: 2.430124, y: 0}
   runStopClip: {fileID: 7400000, guid: 902c6ced14a1ff34fb67a20c02776a4a, type: 2}
   walkStopClip: {fileID: 7400000, guid: 167284b6419c2264b9cd5ab78c523ca8, type: 2}
-  runTurn180Clip: {fileID: 7400000, guid: 1f7c5347ff4d14343b66d1d22b466305, type: 2}
+  runTurn180Clip: {fileID: 7400000, guid: b3730b14c488a5f48aa9cb26f76cb6c8, type: 2}
 --- !u!114 &1765722336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1454,8 +1491,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 1128925230}
+  m_Follow: {fileID: 1128925230}
   m_CommonLens: 1
   m_Lens:
     FieldOfView: 40
@@ -1627,7 +1664,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831797791}
-  m_LocalRotation: {x: 0.12719242, y: 0.00000001975154, z: -0.0000000025328175, w: 0.9918781}
+  m_LocalRotation: {x: 0.12719242, y: 0.000000017064034, z: -0.0000000021881876, w: 0.9918781}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2153,7 +2190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &919132148441854312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,7 +2202,7 @@ GameObject:
   - component: {fileID: 543450652164287442}
   - component: {fileID: 5866666020475318696}
   - component: {fileID: 5866666020475318698}
-  - component: {fileID: 5866666020475318697}
+  - component: {fileID: 5866666020475318700}
   - component: {fileID: 1765722331}
   - component: {fileID: 1765722332}
   - component: {fileID: 1765722336}
@@ -2177,7 +2214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1031632035384594831
 Transform:
   m_ObjectHideFlags: 0
@@ -5012,22 +5049,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!54 &5866666020475318697
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148441854312}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!136 &5866666020475318698
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5057,6 +5078,24 @@ MonoBehaviour:
   runTimeFSMController: {fileID: 11400000, guid: 05c56e8fc712d724385451a15556a804, type: 2}
   DefaultExitTime: 0.1
   isExitingState: 0
+--- !u!143 &5866666020475318700
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148441854312}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.8
+  m_Radius: 0.2
+  m_SlopeLimit: 45
+  m_StepOffset: 0
+  m_SkinWidth: 0.0001
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!4 &5901452233531577480
 Transform:
   m_ObjectHideFlags: 0

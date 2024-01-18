@@ -18,6 +18,9 @@ namespace AE_Motion
         /// 浮点比较值
         /// </summary>
         public float zero = 1e-6f;
+        //转身结束的角度
+        public float turnStopAngle = 30f;
+        public float turnStartAngle = 160f;
     }
 
     public class PlayerMotion

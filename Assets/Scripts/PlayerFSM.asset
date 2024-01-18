@@ -26,8 +26,8 @@ MonoBehaviour:
     trasitions: []
   - rect:
       serializedVersion: 2
-      x: -43.8095
-      y: -60.000122
+      x: -51.3095
+      y: 112.49988
       width: 480
       height: 90
     defualtState: 0

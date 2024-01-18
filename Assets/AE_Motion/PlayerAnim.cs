@@ -21,7 +21,7 @@ namespace AE_Motion
 
         public void Init(PlayerMotion playerMotion)
         {
-            m_animController = new AEAnimController(this, playerMotion.Animator, playerMotion.Modle, playerMotion.Body);
+            m_animController = new AEAnimController(this, playerMotion.Animator, playerMotion.Modle, playerMotion.CharactorController);
 
             //添加状态
             var m_idleAnim = new IdleAnim(m_animController.Graph, idleClips, 5f, 0.5f);

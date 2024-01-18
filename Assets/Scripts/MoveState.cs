@@ -1,15 +1,12 @@
-﻿using System.Globalization;
-using System.Collections;
+﻿using System.Collections;
 using AE_FSM;
-using Unity.Rendering.HybridV2;
 using UnityEngine;
-using AE_Motion;
 
 public class MoveState : BaseState
 {
     protected bool enableInput;
-    private bool isTurning;
-    private Quaternion desierQuaternion;
+    protected bool isTurning;
+    private Vector3 desierRotation;
     private Coroutine stopTurnCoroutine;
 
     public override void Enter(FSMController controller)
@@ -20,9 +17,6 @@ public class MoveState : BaseState
         m_ctx.currentSpeed = 0;
         m_ctx.currentTurnSpeed = 0;
         m_anim.TransitionTo("MoveBlendTree");
-        // m_anim.TransitionTo("MoveBlendTree2D");
-        // ApplayRootMotion();
-        // m_anim.AnimatorCroosFade("MoveState", 0.1f);
     }
 
     public override void Exit(FSMController controller)
@@ -32,25 +26,29 @@ public class MoveState : BaseState
 
     public override void FixUpdate(FSMController controller)
     {
-        if (enableInput)
+        if (!enableInput) return;
+
+        if (isTurning) return;
+
+        //可以考虑使用Quaternion.RotateTowards。
+        //这个方法可以让你设置一个最大的旋转角度，以确保平滑过渡而不会瞬间完成旋转。
+        if (m_sensor.desiredVelocity != Vector3.zero)
         {
-
-            //可以考虑使用Quaternion.RotateTowards。这个方法可以让你设置一个最大的旋转角度，以确保平滑过渡而不会瞬间完成旋转。
-            //转向完成之前不许旋转
-            if (!isTurning && m_sensor.desiredVelocity != Vector3.zero)
+            Quaternion from = m_modle.localRotation;
+            Quaternion to = Quaternion.LookRotation(m_sensor.desiredVelocity);
+            float angle = Quaternion.Angle(from, to);
+            //Debug.Log(angle);
+            if (m_ctx.currentSpeed >= m_ctx.runSpeed && angle > m_ctx.turnStartAngle)
             {
-                m_modle.localRotation = Quaternion.RotateTowards(m_modle.localRotation, Quaternion.LookRotation(m_sensor.desiredVelocity), Time.fixedDeltaTime * m_ctx.rotateSpeed);
+                Quaternion rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+                desierRotation = rotation * m_modle.forward;
+                RunTurn180Angle(controller);
+                return;
             }
-
-            // TODO:转向
-            // float angle = Vector2.SignedAngle(new Vector2(m_modle.forward.x, m_modle.forward.z), new Vector2(m_sensor.desiredVelocity.x, m_sensor.desiredVelocity.z));
-            // angle = Mathf.Deg2Rad * angle/Time.fixedDeltaTime;
-            // m_ctx.currentTurnSpeed = Mathf.Lerp(m_ctx.currentTurnSpeed, angle, 0.1f);
-            // if()
-
-            m_body.velocity = m_sensor.desiredVelocity;
-            // m_characterController.SimpleMove(m_sensor.desiredVelocity);
+            m_modle.localRotation = Quaternion.RotateTowards(from, to, Time.fixedDeltaTime * m_ctx.rotateSpeed);
         }
+
+        m_characterController.SimpleMove(m_sensor.desiredVelocity);
     }
 
     public override void LaterUpdate(FSMController controller)
@@ -60,20 +58,17 @@ public class MoveState : BaseState
 
     public override void Update(FSMController controller)
     {
-        if (enableInput && !isTurning)
-        {
-            CheckRunTurn180Angle(controller);
-            UpdateVelocity();
-        }
+        UpdateVelocity();
         m_anim.BlendTree1DSetValue("MoveBlendTree", m_ctx.currentSpeed);
-        // m_anim.BlendClipTree2DSetPointer("MoveBlendTree2D", new Vector2(m_ctx.currentTurnSpeed, m_ctx.currentSpeed));
-        // m_anim.AnimatorSetFloat("Velocity", m_ctx.currentSpeed);
-        // m_anim.AnimatorSetFloat("TurnSpeed", m_ctx.currentTurnSpeed);
+        controller.SetBool("isTurning", isTurning);
+        Debug.DrawRay(m_modle.position, desierRotation, Color.blue);
     }
 
     //更新速度
     private void UpdateVelocity()
     {
+        if (isTurning) return;
+
         if (m_params.run)
         {
             m_ctx.currentSpeed = Mathf.Lerp(m_ctx.currentSpeed, m_ctx.runSpeed * 1.5f, 0.05f);
@@ -99,54 +94,38 @@ public class MoveState : BaseState
         {
             m_sensor.desiredVelocity = new Vector3(m_params.moveInput.x, 0f, m_params.moveInput.y) * m_ctx.currentSpeed;
         }
-
-        #region  Test
-        // float angle = Vector2.SignedAngle(new Vector2(m_modle.forward.x, m_modle.forward.z), new Vector2(m_sensor.desiredVelocity.x, m_sensor.desiredVelocity.z));
-
-        // if (Mathf.Abs(angle) > 5)
-        // {
-        //     if (angle > 0)
-        //         m_ctx.currentTurnSpeed = -Mathf.Lerp(m_ctx.currentTurnSpeed, m_params.run ? m_ctx.walkRotateSpeed : m_ctx.runRoateSpeed, 0.7f);
-        //     else if (angle < 0)
-        //         m_ctx.currentTurnSpeed = Mathf.Lerp(m_ctx.currentTurnSpeed, m_params.run ? m_ctx.walkRotateSpeed : m_ctx.runRoateSpeed, 0.7f);
-        // }
-        // else
-        //     m_ctx.currentTurnSpeed = Mathf.Lerp(m_ctx.currentTurnSpeed, 0,0.1f);
-        #endregion
     }
 
     //检测角度变化大于180
-    public void CheckRunTurn180Angle(FSMController controller)
+    public void RunTurn180Angle(FSMController controller)
     {
-        // 直接使用 输入 与 方向 相比较
-        // Vector3.SignedAngle 计算两个向量之间的有符号角度，正值表示顺时针旋转，负值表示逆时针旋转。
-        float angle = Mathf.Abs(Vector3.SignedAngle(m_modle.forward, m_sensor.desiredVelocity, m_modle.up));
-        if (angle > 150f && m_ctx.currentSpeed > m_ctx.walkSpeed)
-        {
-            isTurning = true;
-            ApplayRootMotion();
-            controller.SetBool("isTurning", isTurning);
-            desierQuaternion = Quaternion.Euler(new Vector3(m_modle.localEulerAngles.x, m_modle.localEulerAngles.y + 180f, m_modle.localEulerAngles.z));
-            m_anim.TransitionTo("RunTurn180", () =>
-            {
-                if (stopTurnCoroutine != null)
-                    m_anim.StopCoroutine(stopTurnCoroutine);
-                stopTurnCoroutine = m_anim.StartCoroutine(StopTurn(controller));
-                PreventRootMotion();
-                m_anim.TransitionTo("MoveBlendTree");
-                // m_anim.TransitionTo("MoveBlendTree2D");
-                // m_anim.AnimatorCroosFade("MoveState", 0.1f);
-            }, -1f, 0.8567f);
-        }
+        isTurning = true;
+        //Debug.Log("转弯");
+        ApplayRootMotion();
+        m_anim.TransitionTo("RunTurn180");
+        if (stopTurnCoroutine != null)
+            m_anim.StopCoroutine(stopTurnCoroutine);
+        stopTurnCoroutine = m_anim.StartCoroutine(StopTurn(controller));
     }
 
     private IEnumerator StopTurn(FSMController controller)
     {
-        while (Quaternion.Angle(m_modle.localRotation, desierQuaternion) > 1f)
-            m_modle.localRotation = Quaternion.Slerp(m_modle.transform.localRotation, desierQuaternion, 0.2f);
-        yield return new WaitForSeconds(0.15f);
+        Vector3 forward = new Vector3(m_modle.forward.x, 0, m_modle.forward.z);
+        float angle = Vector3.Angle(desierRotation, forward);
+
+        while (angle > m_ctx.turnStopAngle)
+        {
+            forward = new Vector3(m_modle.forward.x, 0, m_modle.forward.z);
+            angle = Vector3.Angle(desierRotation, forward);
+            yield return null;
+        }
+
+        m_modle.forward = desierRotation;
+
+        PreventRootMotion();
+        m_anim.TransitionTo("MoveBlendTree",null,0.01f);//如果不设置一个极小的事件下一次连续的 RunTurn180 --> RunTurn180将会非常短几乎看不出动画
+        //Debug.Log("转弯结束");
         isTurning = false;
-        controller.SetBool("isTurning", isTurning);
         yield break;
     }
 
@@ -155,6 +134,7 @@ public class MoveState : BaseState
         enableInput = false;
         base.ApplayRootMotion();
     }
+
     protected override void PreventRootMotion()
     {
         enableInput = true;
