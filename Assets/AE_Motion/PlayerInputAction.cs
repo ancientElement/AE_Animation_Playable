@@ -44,7 +44,7 @@ namespace AE_Motion
                     ""id"": ""3edc8d3d-a574-46a2-9b3d-3070a80077a1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
@@ -145,7 +145,7 @@ namespace AE_Motion
                 {
                     ""name"": """",
                     ""id"": ""9440e1b0-ed98-450f-b08b-8918342a1f6b"",
-                    ""path"": ""<Keyboard>/x"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

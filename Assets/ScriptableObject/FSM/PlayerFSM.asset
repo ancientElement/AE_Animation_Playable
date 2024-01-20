@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bac8007dd04da848bb241efddd58ec8, type: 3}
+  m_Name: PlayerFSM
+  m_EditorClassIdentifier: 
+  states:
+  - rect:
+      serializedVersion: 2
+      x: -219.99936
+      y: 13.333417
+      width: 480
+      height: 90
+    defualtState: 0
+    name: AnyState
+    scriptName: 
+    script: {fileID: 0}
+    trasitions: []
+  - rect:
+      serializedVersion: 2
+      x: -217.9755
+      y: 175.83319
+      width: 480
+      height: 90
+    defualtState: 0
+    name: EnterState
+    scriptName: 
+    script: {fileID: 0}
+    trasitions: []
+  - rect:
+      serializedVersion: 2
+      x: -221.46126
+      y: 350.5859
+      width: 480
+      height: 90
+    defualtState: 1
+    name: IdleState
+    scriptName: IdleState
+    script: {fileID: 11500000, guid: 46e3cee2b61d45142bbb11506af58751, type: 3}
+    trasitions:
+    - fromState: IdleState
+      toState: MoveState
+      conditions:
+      - tragetValue: 0.000001
+        paramterName: moveInputMagnitude
+        compareType: 0
+  - rect:
+      serializedVersion: 2
+      x: 119.26673
+      y: 589.53735
+      width: 480
+      height: 90
+    defualtState: 0
+    name: MoveState
+    scriptName: MoveState
+    script: {fileID: 11500000, guid: ce0950108907f8c43825f4479194123e, type: 3}
+    trasitions:
+    - fromState: MoveState
+      toState: IdleState
+      conditions:
+      - tragetValue: 0.000001
+        paramterName: moveInputMagnitude
+        compareType: 1
+      - tragetValue: 0
+        paramterName: isTurning
+        compareType: 2
+  paramters:
+  - name: moveInputMagnitude
+    value: 0
+    paramterType: 0
+  - name: isTurning
+    value: 0
+    paramterType: 2
+  - name: jump
+    value: 0
+    paramterType: 2
+  - name: onGround
+    value: 0
+    paramterType: 2

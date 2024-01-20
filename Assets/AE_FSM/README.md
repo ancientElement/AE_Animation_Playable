@@ -21,7 +21,7 @@ public class MYFSMController : FSMController<Test>
 
 在右键菜单AE_FSM/FSMController
 
-![image-20240103152442399](img.assets/image-20240103152442399.png)
+![image-20240103152442399](ImgAssets/image-20240103152442399.png)
 
 3.创建状态脚本
 
@@ -56,8 +56,8 @@ public class Attack : IFSMState
 
 将``MYFSMController.cs``挂载到游戏对象上点击,点击一下菜单
 
-![image-20240103152803086](img.assets/image-20240103152803086.png)
+![image-20240103152803086](ImgAssets/image-20240103152803086.png)
 
 打开状态机窗口,点击状态机文件或者挂载状态机的对象,最后将状态脚本拖入窗口中
 
-![image-20240103152636870](img.assets/image-20240103152636870.png)
+![image-20240103152636870](ImgAssets/image-20240103152636870.png)

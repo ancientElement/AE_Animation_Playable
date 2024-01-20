@@ -5,12 +5,22 @@ using UnityEngine;
 public class GameLoop : MonoBehaviour
 {
     private PlayerMotion m_playerMotion;
-    
+    public PlayerMotion Motion => m_playerMotion;
+
+    public Transform playerTansfrom;
     public PlayerLocomotionContext playerLocomotion;
 
     private void Start()
     {
-        m_playerMotion = new PlayerMotion(transform, GetComponent<Animator>(), GetComponent<CharacterController>(), GetComponent<Rigidbody>(), GetComponent<PlayerAnim>(), GetComponent<FSMController>(), GetComponent<PlayerParam>(), GetComponent<PlayerSensor>(), playerLocomotion);
+        m_playerMotion = GetComponent<PlayerMotion>();
+        m_playerMotion.Init(playerTansfrom,
+                            GetComponent<Animator>(),
+                            GetComponent<CharacterController>(),
+                            GetComponent<PlayerAnim>(),
+                            GetComponent<FSMController>(),
+                            GetComponent<PlayerParam>(),
+                            GetComponent<PlayerSensor>(),
+                            playerLocomotion);
         Cursor.lockState = CursorLockMode.Locked;
     }
 

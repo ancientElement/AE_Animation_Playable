@@ -1,21 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using AE_Motion;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.NCalc;
-using UnityEditor.Experimental.GraphView;
-using UnityEditorInternal;
 using UnityEngine;
-using static UnityEditor.Progress;
-using static UnityEditorInternal.VersionControl.ListControl;
 
 namespace AE_FSM
 {
     public class FSMController : MonoBehaviour
     {
-        public PlayerMotion Motion { get; private set;}
-
         /// <summary>
         /// 配置文件
         /// </summary>
@@ -110,15 +100,12 @@ namespace AE_FSM
         /// <summary>
         /// 初始化
         /// </summary>
-        public virtual void Init(PlayerMotion playerMotion)
+        public virtual void Init()
         {
             //复制数据
             if (runTimeFSMController == null) return;
 
             _runTimeFSMController = GameObject.Instantiate(runTimeFSMController);
-
-            Motion = playerMotion;
-
 
             //初始化参数
 
@@ -178,11 +165,12 @@ namespace AE_FSM
         public void CheckTransfrom()
         {
             foreach (FSMTransition item in currentState.transitions)
-            {
+            { 
+                //TODO:先用最愚蠢的办法
+                if (item.translationData.fromState != currentState.stateNodeData.name) continue;
                 item.CheckAllConditionMeet();
             }
         }
-
 
         #region 设置参数
 
